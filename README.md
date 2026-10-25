@@ -86,3 +86,15 @@ This is **unofficial practice material**. It is not affiliated with, endorsed by
 ## License
 
 [MIT](LICENSE) © 2026 Szymon Paluch
+
+## Extra question sets (local)
+
+`index.html` also loads additional sets from `sets/` via `?set=<id>` (`scenario-a`, `scenario-b`, `practice-1`, `practice-2`); with no parameter it uses the built-in 60 questions. Use the selector on the start screen to switch; progress is stored separately per set.
+
+```bash
+node scripts/build-sets.mjs path/to/md-folder   # regenerate sets/*.js from the Markdown files
+```
+
+## GitHub Pages deployment
+
+Every push to `main` runs `.github/workflows/pages.yml`, which publishes `index.html` and `sets/` to GitHub Pages. One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**. The site is then served at `https://<user>.github.io/claude-certified-architect-practice-exam/` (e.g. `?set=scenario-a`). All asset paths are relative, so the project sub-path works unchanged. Run `node scripts/build-sets.mjs <md folder>` and commit `sets/` before pushing, since the workflow does not regenerate them.
