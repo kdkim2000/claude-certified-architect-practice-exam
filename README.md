@@ -98,3 +98,11 @@ node scripts/build-sets.mjs path/to/md-folder   # regenerate sets/*.js from the 
 ## GitHub Pages deployment
 
 Every push to `main` runs `.github/workflows/pages.yml`, which publishes `index.html` and `sets/` to GitHub Pages. One-time setup: **Settings → Pages → Build and deployment → Source: GitHub Actions**. The site is then served at `https://<user>.github.io/claude-certified-architect-practice-exam/` (e.g. `?set=scenario-a`). All asset paths are relative, so the project sub-path works unchanged. Run `node scripts/build-sets.mjs <md folder>` and commit `sets/` before pushing, since the workflow does not regenerate them.
+
+## Study mode (`study.html`)
+
+Chapter-by-chapter exam prep built from the `CCAR-F_D*_S*_notes.md` study notes (S02–S19): lecture notes, exam-level supplements, Exam Cheat Sheet, and 20 practice questions per chapter (360 total), plus a progress dashboard, cross-chapter wrong-answer review, and full-text search. Progress is saved in `localStorage`. Markdown is rendered by the vendored `vendor/marked.min.js` (marked v12, MIT).
+
+```bash
+node scripts/build-study.mjs path/to/notes-folder   # regenerate study/*.js (fails if a chapter loses questions/headings)
+```
