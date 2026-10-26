@@ -8,11 +8,17 @@ const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = process.argv[2] || join(root, "..");
 
 const SETS = [
-  { id: "scenario-a", file: "시나리오모의고사A.md", title: "시나리오 모의고사 A", sub: "Scenario Mock A · 60 Questions" },
-  { id: "scenario-b", file: "시나리오모의고사B.md", title: "시나리오 모의고사 B", sub: "Scenario Mock B · 60 Questions" },
+  // Real-exam format: 6 official scenarios in one pool; each attempt draws 4 scenarios x 15 questions.
   { id: "practice-1", file: "실전테스트1.md", title: "실전 모의고사 1", sub: "Practice Exam 1 · 60 Questions" },
   { id: "practice-2", file: "실전테스트2.md", title: "실전 모의고사 2", sub: "Practice Exam 2 · 60 Questions" },
+  { id: "practice-3", file: "실전테스트3.md", title: "실전 모의고사 3", sub: "Practice Exam 3 · 4 Scenarios · 60 Questions" },
+  // Real-exam format: 6 official scenarios in one pool; each attempt draws 4 scenarios x 15 questions,
+  // with the domain totals fixed to the official weighting (target). count: null = any size, checked below.
+  { id: "scenario-pool", file: "시나리오실전풀.md", title: "실전형 시나리오 모의고사", sub: "6개 시나리오 중 4개 무작위 · 60 Questions", count: null,
+    pool: { draw: 4, per: 15, target: [16, 11, 12, 12, 9] }, menu: "실전형 시나리오 (6개 중 4개 무작위 · 60)" },
 ];
+// The default set is the 60-question bank embedded in index.html (scripts/sync-bank.mjs), shown as 실전 모의고사 4.
+const DEFAULT_MENU = { id: "default", title: "실전 모의고사 4 (60)", after: "practice-3" };
 const META = {
   kind: "mock", timeLimitSec: 7200, passScaled: 720,
   domains: { 1: "Agentic Architecture & Orchestration", 2: "Tool Design & MCP Integration", 3: "Claude Code Configuration & Workflows", 4: "Prompt Engineering & Structured Output", 5: "Context Management & Reliability" },
@@ -55,7 +61,12 @@ function parse(set) {
     if (keyRows[n] !== ans[1]) fail(`${set.id} Q${n}: answer ${ans[1]} != key table ${keyRows[n]}`);
     qs.push({ n, q });
   }
-  if (qs.length !== 60 || qs.some((x, i) => x.n !== i + 1)) fail(`${set.id}: expected Q1..Q60, got ${qs.length}`);
+  const count = set.count === null ? qs.length : set.count || 60;
+  if (qs.length !== count || qs.some((x, i) => x.n !== i + 1)) fail(`${set.id}: expected Q1..Q${count}, got ${qs.length}`);
+  if (set.count !== null) {
+    const doms = [1, 2, 3, 4, 5].map((d) => qs.filter((x) => x.q.domain === d).length);
+    if (doms.join("/") !== "16/11/12/12/9") fail(`${set.id}: domain counts ${doms.join("/")} != 16/11/12/12/9`);
+  }
   const dist = [0, 0, 0, 0]; qs.forEach((x) => dist[x.q.answer]++);
   console.log(`${set.id}: ${qs.length} questions, answers ${dist.join("/")}, key table OK`);
   return qs.map((x) => x.q);
@@ -66,7 +77,12 @@ for (const set of SETS) {
   const data = { id: `cca-${set.id}`, title: set.title, subtitle: set.sub, ...META,
     note: "자체 제작 CCAR-F 연습 문제입니다(비공식). 문제·보기는 영어, 해설은 한국어. 이 도구의 점수식은 공식 채점과 다릅니다.",
     questions: parse(set) };
+  if (set.pool) data.pool = set.pool;
   writeFileSync(join(root, "sets", `${set.id}.js`), "window.EXAM_DATA = " + JSON.stringify(data) + ";\n");
 }
-const manifest = [{ id: "default", title: "기본 · Official-style Practice (60)" }, ...SETS.map((s) => ({ id: s.id, title: s.title + " (60)" }))];
+const manifest = [];
+for (const s of SETS) {
+  manifest.push({ id: s.id, title: s.menu || s.title + " (60)" });
+  if (s.id === DEFAULT_MENU.after) manifest.push({ id: DEFAULT_MENU.id, title: DEFAULT_MENU.title });
+}
 writeFileSync(join(root, "sets", "manifest.js"), "window.EXAM_SETS = " + JSON.stringify(manifest, null, 1) + ";\n");

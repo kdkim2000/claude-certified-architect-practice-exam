@@ -1,19 +1,22 @@
 # Claude Certified Architect – Foundations (CCAR-F): Practice Exam + Study Site
 
 An unofficial study site for the Anthropic **Claude Certified Architect – Foundations** certification (exam code **CCAR-F**).
-This fork extends the original single-file practice exam (60 questions) into **four ways to prepare**:
+This fork extends the original single-file practice exam (60 questions) into **five ways to prepare**:
 
 | Mode | Page | What it is |
 |---|---|---|
-| 📝 **Mock exams** | [`index.html`](index.html) | Timed / study-mode exams. The original 60 questions plus 4 extra 60-question sets (`?set=…`). |
 | 📚 **Study by section** | [`study.html`](study.html) | 18 course chapters (S02–S19): lecture notes, exam-level supplements, cheat sheets, 20 practice questions each (360). |
 | 🎯 **Study by Task Statement** | [`tasks.html`](tasks.html) | The 30 official Task Statements (1.1–5.6): notes, exam traps, build-exercise checklists, 98 practice scenarios, infographics, local video/audio. |
+| 📘 **Guide study** | [`guide.html`](guide.html) | 13 technology units (Claude API → tools → Agent SDK → MCP → Claude Code → prompting → Batches → decomposition → escalation → error handling → context → provenance → built-in tools) + hands-on exercises: Korean notes, exam points, 5 check questions per unit (60). |
+| 📝 **Mock exams** | [`index.html`](index.html) | Timed / study-mode exams: 실전 모의고사 1–4 (60 each, fixed) and the real-format scenario mock (4 of 6 scenarios drawn per attempt). |
 | ⚠️ **Exam traps digest** | `tasks.html#/traps` | "In the Exam" + "Exam Traps" of all 30 tasks on one filterable page. |
+
+Every page shares one top menu in this order: **📚 섹션별 학습 → 🎯 Task별 학습 → 📘 가이드 학습 → 📝 모의고사** (`nav.js`). Every mock exam has exactly the official domain weighting per 60 questions: D1 16 · D2 11 · D3 12 · D4 12 · D5 9 (27/18/20/20/15%). The default 60-question bank carries Korean explanations (`🇰🇷 한국어 해설`) after the English ones.
 
 Live site (GitHub Pages): **https://kdkim2000.github.io/claude-certified-architect-practice-exam/**
 
 > **Unofficial practice material.** Not affiliated with, endorsed by, or sponsored by Anthropic. See [Disclaimer](#disclaimer).
-> **About the format.** The real CCAR-F also has multiple-response items and picks four of six scenarios per sitting; the mock exams here do neither. The score is this tool's own formula (`100 + 900 × correct ÷ total`, 720 as a practice reference), not Anthropic's scoring.
+> **About the format.** Per the official Exam Guide, every CCAR-F question is single-answer multiple choice (one correct option, three distractors), and each sitting presents 4 scenarios drawn at random from 6. The `scenario-pool` set reproduces that draw; the other sets use a fixed 60 questions. The score is this tool's own formula (`100 + 900 × correct ÷ total`, 720 as a practice reference), not Anthropic's scoring.
 
 ---
 
@@ -56,9 +59,12 @@ Requirements for *using* the site: a browser, and (optionally) Node.js ≥ 18 fo
 
   | id | Set | Notes |
   |---|---|---|
-  | *(none)* | Built-in 60 questions | original upstream bank |
-  | `scenario-a`, `scenario-b` | Scenario mock A / B | 4 scenarios × 15 questions, shared scenario text shown above each question |
-  | `practice-1`, `practice-2` | Practice exam 1 / 2 | 60 questions each, domain-balanced |
+  | `practice-1`, `practice-2` | 실전 모의고사 1 / 2 | 60 questions each |
+  | `practice-3` | 실전 모의고사 3 | 60 new questions on the checkpoints of the community study guide's samples and practice test (no text copied), 4 scenarios × 15 |
+  | *(none)* | 실전 모의고사 4 | the upstream 60-question bank (`questions/ccar-f.md`) with Korean explanations |
+  | `scenario-pool` | 실전형 시나리오 | 169-question pool over the 6 official scenarios; every attempt draws 4 scenarios × 15 questions, picking per-domain counts so the attempt is exactly 16/11/12/12/9 |
+
+  All sets are single-answer, 4-option questions, as in the official exam.
 
   Each set keeps its own progress (`localStorage` key `cca_exam_v2_<set id>`).
 
@@ -145,7 +151,11 @@ Run from the repository root. Every script **fails with exit code 1** if content
 # --- mock-exam sets  (reads the 4 mock-exam .md files in the content folder) ---
 node scripts/build-sets.mjs                       # default: parent folder
 node scripts/build-sets.mjs "E:/NotebookLM/CCAR-F2"
-#   checks: 60 questions, 4 options, answers 15/15/15/15, matches the answer-key table
+#   checks: 4 options, answers match the answer-key table, fixed sets = 60 questions at exactly 16/11/12/12/9
+
+# --- guide study (가이드학습/G00–G14.md -> guide/) ---
+node scripts/build-guide.mjs
+#   checks: required top-level sections per unit, 5 questions x 4 options with an answer line
 
 # --- section study notes (18 chapters) ---
 node scripts/build-study.mjs
@@ -170,7 +180,7 @@ node scripts/serve.mjs 9000       # other port
 Smoke test checklist:
 
 - `/` → mock exam start screen with the **문제셋** dropdown (5 sets) and links to study modes.
-- `/?set=scenario-a` → "시나리오 모의고사 A", scenario text visible above questions.
+- `/?set=scenario-pool` → "실전형 시나리오 모의고사": a new random draw of 4 scenarios on every start, "Scenario k of 4" above each question.
 - `/study.html` → 18 chapter cards; open a chapter → 4 tabs; solve a question.
 - `/tasks.html` → 30 task cards; open a task → note / practice / media tabs; `#/traps` shows 30 boxes.
 
@@ -245,6 +255,7 @@ Markdown format expected by the converters:
 ## Credits, disclaimer, license
 
 - Upstream project: **[Szymon Paluch](https://szymonpaluch.com)** — original 60-question CCAR-F practice exam, [`questions/ccar-f.md`](questions/ccar-f.md), and `scripts/sync-bank.mjs` (upstream: [hculap/claude-certified-architect-practice-exam](https://github.com/hculap/claude-certified-architect-practice-exam), also available at [szymonpaluch.com](https://szymonpaluch.com/claude-certified-architect-practice-exam)). The built-in 60 questions are original work written from the publicly available exam guide.
+- Guide study (`guide.html`) and 실전 모의고사 3 follow the topic structure and the checkpoints of the community study guide [paullarionov/claude-certified-architect](https://github.com/paullarionov/claude-certified-architect). That repository states no license, so none of its text, code or questions is reproduced here: the notes and questions are written from scratch, and a script checks that no 8-word run matches the guide.
 - Fork additions (extra sets, study modes, build scripts, Pages deployment): content derived from the maintainer's own study notes and the `AICG` materials; the question text in those sets is separate from the upstream bank.
 - **Disclaimer.** This is **unofficial practice material**, not affiliated with, endorsed by, or sponsored by Anthropic. It contains no leaked, copied or reconstructed items from Anthropic's exam, and practising here does not guarantee any exam outcome. The official Exam Guide is **not** reproduced here. "Claude" is a trademark of Anthropic.
 - **License.** [MIT](LICENSE) © 2026 Szymon Paluch (upstream). The vendored `vendor/marked.min.js` is marked v12 © Christopher Jeffrey, MIT.

@@ -144,7 +144,11 @@ function listLetters(ls) {
 // Sentences before the first one that names a wrong option form the lead paragraph; every
 // sentence from there on is a bullet, labelled only if it names a wrong option.
 function renderExplanation(q, correct) {
-  const tagged = sentences(q.explanation).map((s) => ({
+  // An optional Korean part follows the English one, introduced by a line starting with "🇰🇷".
+  const koAt = q.explanation.indexOf('\n\n🇰🇷');
+  const english = koAt === -1 ? q.explanation : q.explanation.slice(0, koAt);
+  const korean = koAt === -1 ? '' : q.explanation.slice(koAt).trim();
+  const tagged = sentences(english).map((s) => ({
     s,
     bare: /^[B-H]\s+\p{Ll}/u.test(s),
     wrong: [...namedLetters(s, q.options.length)].filter((l) => !correct.includes(l)).sort(),
@@ -170,6 +174,11 @@ function renderExplanation(q, correct) {
     lines.push(`- **Why ${listLetters(t.wrong)} ${verb} wrong:** ${md(t.s)}`);
   }
   if (rest.length) lines.push('');
+  if (korean) {
+    const [title, ...body] = korean.split('\n').map((l) => l.trim()).filter(Boolean);
+    lines.push(`**${title}**`, '');
+    for (const l of body) lines.push(l.startsWith('- ') ? `- ${md(l.slice(2))}` : md(l), '');
+  }
   return { lines, named: new Set(rest.flatMap((t) => t.wrong)) };
 }
 
