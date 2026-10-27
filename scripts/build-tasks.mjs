@@ -4,6 +4,7 @@
 import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { createHash } from "node:crypto";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = process.argv[2] || join(root, "..", "AICG");
@@ -13,6 +14,11 @@ const COUNTS = { 1: 7, 2: 5, 3: 6, 4: 6, 5: 6 }; // official Task Statements per
 const WEIGHT = { 1: 27, 2: 18, 3: 20, 4: 20, 5: 15 };
 const EXPECTED = Object.entries(COUNTS).flatMap(([d, n]) => Array.from({ length: n }, (_, i) => `${d}.${i + 1}`));
 const files = readdirSync(src);
+// Media is too large for the repo/Pages, so it is published as assets of one GitHub release; the
+// page streams from there when ../AICG is not reachable. Asset names are ASCII aliases (GitHub
+// mangles non-ASCII names) that stay stable as long as the source file name does.
+const MEDIA_RELEASE = "https://github.com/kdkim2000/claude-certified-architect-practice-exam/releases/download/media-v1/";
+const assetName = (f, id, kind, ext) => `${id.replace(".", "-")}_${kind}_${createHash("sha1").update(f).digest("hex").slice(0, 8)}.${ext}`;
 
 // ---------- media (naming rule: [(s)]D-T_name.ext) ----------
 const KIND = { mp4: "video", m4a: "audio", pdf: "pdf", png: "image" };
@@ -27,7 +33,8 @@ for (const f of files) {
   if (!m || !media[`${m[2]}.${m[3]}`]) fail(`media file does not match naming rule / known task: ${f}`);
   const id = `${m[2]}.${m[3]}`;
   if (ext === "png") { media[id].image = `tasks/img/${m[2]}-${m[3]}.webp`; if (!existsSync(join(root, media[id].image))) fail(`missing ${media[id].image} (run scripts/png2webp.py)`); continue; }
-  media[id][KIND[ext]].push({ file: f, label: m[4].replace(/_/g, " "), variant: m[1] || "", mb: Math.round(statSync(join(src, f)).size / 1048576) });
+  const size = statSync(join(src, f)).size;
+  media[id][KIND[ext]].push({ file: f, asset: assetName(f, id, KIND[ext], ext), size, label: m[4].replace(/_/g, " "), variant: m[1] || "", mb: Math.round(size / 1048576) });
 }
 
 // ---------- markdown ----------
@@ -96,5 +103,9 @@ for (const f of mdFiles) {
   console.log(`${id} ${data.title.slice(0, 44).padEnd(44)} scen=${scenarios.length} chk=${items.length} h=${got.h2}/${got.h3} media: v${m.video.length} a${m.audio.length} p${m.pdf.length} i${m.image ? 1 : 0}`);
 }
 if (seen.size !== 30) fail("not all 30 tasks present");
-writeFileSync(join(root, "tasks", "manifest.js"), `window.TASK_WEIGHTS=${JSON.stringify(WEIGHT)};window.TASK_MANIFEST=${JSON.stringify(manifest, null, 1)};\n`);
+// Upload list for scripts/upload-media.mjs: release asset name -> source file in the AICG folder.
+const assets = manifest.flatMap((m) => ["video", "audio", "pdf"].flatMap((k) => m.media[k].map((x) => ({ asset: x.asset, file: x.file, size: x.size }))));
+if (new Set(assets.map((a) => a.asset)).size !== assets.length) fail("duplicate media asset names");
+writeFileSync(join(root, "tasks", "media-assets.json"), JSON.stringify({ release: MEDIA_RELEASE, assets }, null, 1) + "\n");
+writeFileSync(join(root, "tasks", "manifest.js"), `window.TASK_WEIGHTS=${JSON.stringify(WEIGHT)};window.TASK_MEDIA_REMOTE=${JSON.stringify(MEDIA_RELEASE)};window.TASK_MANIFEST=${JSON.stringify(manifest, null, 1)};\n`);
 console.log(`OK: 30 tasks, ${totalScen} scenario questions, ${manifest.reduce((a, m) => a + m.media.video.length + m.media.audio.length + m.media.pdf.length + (m.media.image ? 1 : 0), 0)} media items mapped; skipped (not a task): ${skipped.join(", ") || "-"}`);

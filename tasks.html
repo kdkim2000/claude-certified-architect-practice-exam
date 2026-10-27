@@ -267,21 +267,30 @@ function mediaView(m,d){
   var mm=m.media, all=[].concat(mm.video.map(function(f){return ["video",f];}),mm.audio.map(function(f){return ["audio",f];}),mm.pdf.map(function(f){return ["pdf",f];}));
   var ICON={video:"🎬",audio:"🎧",pdf:"📄"}, KIND={video:"영상",audio:"오디오 요약",pdf:"PDF 가이드"};
   var h=head(m,"media")+'<div class="card media">'+(mm.image?'<h2 style="margin-bottom:10px">인포그래픽</h2><a href="'+mm.image+'" target="_blank"><img class="info" src="'+mm.image+'" alt="Task '+m.id+' infographic"></a>':'<p class="muted">이 Task에는 인포그래픽이 없습니다.</p>')+
-    '<h2 style="margin:22px 0 8px">영상 · 오디오 · PDF <span class="w" id="mstat">로컬 파일 확인 중…</span></h2><div id="mlist">'+
+    '<h2 style="margin:22px 0 8px">영상 · 오디오 · PDF <span class="w" id="mstat">파일 위치 확인 중…</span></h2><div id="mlist">'+
     (all.length?all.map(function(x,i){ var f=x[1]; return '<div class="mrow" data-i="'+i+'"><span>'+ICON[x[0]]+'</span><span class="nm">'+esc(f.label)+'<span class="mbadge">'+KIND[x[0]]+(f.variant?" · 요약본":"")+' · '+f.mb+'MB</span></span><span class="slot"></span></div>'; }).join(""):'<p class="muted">영상·오디오·PDF 파일이 없습니다.</p>')+'</div></div>';
   view.innerHTML=h;
   if(!all.length){ document.getElementById("mstat").textContent=""; return; }
-  var url=function(f){ return MEDIA_BASE+encodeURIComponent(f.file); };
-  fetch(url(all[0][1]),{method:"HEAD"}).then(function(r){ if(!r.ok) throw 0; return true; }).catch(function(){ return false; }).then(function(ok){
+  // Local files (node scripts/serve.mjs, ../AICG) win; otherwise stream the copies published as
+  // GitHub release assets. The release sends no CORS headers, so it is not probed with fetch:
+  // <video>/<audio> play it cross-origin anyway, and PDFs arrive as downloads.
+  var REMOTE=window.TASK_MEDIA_REMOTE||"";
+  var local=function(f){ return MEDIA_BASE+encodeURIComponent(f.file); };
+  fetch(local(all[0][1]),{method:"HEAD"}).then(function(r){ if(!r.ok) throw 0; return true; }).catch(function(){ return false; }).then(function(ok){
     var st=document.getElementById("mstat");
     if(!st) return;
-    if(!ok){ st.innerHTML='— 이 파일들은 용량이 커서 배포본에는 없습니다. 로컬에서 <code>node scripts/serve.mjs</code> 로 실행하면 여기서 재생됩니다.'; return; }
-    st.textContent="— 로컬 파일 재생 가능";
+    if(!ok&&!REMOTE){ st.innerHTML='— 이 파일들은 용량이 커서 배포본에는 없습니다. 로컬에서 <code>node scripts/serve.mjs</code> 로 실행하면 여기서 재생됩니다.'; return; }
+    var url=ok?local:function(f){ return REMOTE+encodeURIComponent(f.asset); };
+    st.textContent=ok?"— 로컬 파일 재생":"— 온라인 스트리밍 (GitHub Releases)";
     Array.prototype.forEach.call(document.querySelectorAll("#mlist .mrow"),function(row){
       var x=all[+row.getAttribute("data-i")], slot=row.querySelector(".slot"), u=url(x[1]);
-      if(x[0]==="pdf"){ slot.innerHTML='<a class="btn" target="_blank" href="'+u+'">열기</a>'; return; }
+      if(x[0]==="pdf"){ slot.innerHTML='<a class="btn" target="_blank" rel="noopener" href="'+u+'">'+(ok?"열기":"다운로드")+'</a>'; return; }
       var b=document.createElement("button"); b.className="btn"; b.textContent="▶ 재생";
-      b.onclick=function(){ var el=document.createElement(x[0]==="video"?"video":"audio"); el.controls=true; el.preload="metadata"; el.src=u; row.parentNode.insertBefore(el,row.nextSibling); b.remove(); if(el.play) el.play().catch(function(){}); };
+      b.onclick=function(){
+        var el=document.createElement(x[0]==="video"?"video":"audio"); el.controls=true; el.preload="metadata"; el.src=u;
+        el.onerror=function(){ var p=document.createElement("p"); p.className="muted"; p.innerHTML='재생할 수 없습니다. <a href="'+u+'" target="_blank" rel="noopener">파일 다운로드</a>'; el.replaceWith(p); };
+        row.parentNode.insertBefore(el,row.nextSibling); b.remove(); if(el.play) el.play().catch(function(){});
+      };
       slot.appendChild(b);
     });
   });

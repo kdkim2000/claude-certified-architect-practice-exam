@@ -1,0 +1,710 @@
+{
+ "release": "https://github.com/kdkim2000/claude-certified-architect-practice-exam/releases/download/media-v1/",
+ "assets": [
+  {
+   "asset": "1-1_video_54c6aef5.mp4",
+   "file": "(s)1-1_CCAR-F_에이전틱_루프_핵심_공략법.mp4",
+   "size": 13705960
+  },
+  {
+   "asset": "1-1_video_81ef5f15.mp4",
+   "file": "1-1_CCAR-F_Agentic Loops.mp4",
+   "size": 32020159
+  },
+  {
+   "asset": "1-1_audio_ea2e9494.m4a",
+   "file": "(s)1-1_CCAR-F_에이전틱_루프와_stopreason_신호등.m4a",
+   "size": 2951420
+  },
+  {
+   "asset": "1-1_audio_d53e004c.m4a",
+   "file": "1-1_클로드_에이전틱_루프가_멈추는_이유.m4a",
+   "size": 32137450
+  },
+  {
+   "asset": "1-1_pdf_e52ff9dd.pdf",
+   "file": "1-1_Agentic_Loop_Architecture_Blueprint.pdf",
+   "size": 14163473
+  },
+  {
+   "asset": "1-2_video_ca5fc815.mp4",
+   "file": "(s)1-2_CCAR-F_시험_완벽_대비_다중_에이전트_오케스트레이션_핵심_정리.mp4",
+   "size": 9965675
+  },
+  {
+   "asset": "1-2_video_76b59ec5.mp4",
+   "file": "1-2_CCAR-F_Multi-Agent Orchestration.mp4",
+   "size": 33746747
+  },
+  {
+   "asset": "1-2_audio_77b4237d.m4a",
+   "file": "(s)1-2_CCAR-F_다중_에이전트_오케스트레이션_핵심_함정.m4a",
+   "size": 4276383
+  },
+  {
+   "asset": "1-2_audio_ff865203.m4a",
+   "file": "1-2_CCAR-F_다중_에이전트_오케스트레이션_핵심_함정.m4a",
+   "size": 26664915
+  },
+  {
+   "asset": "1-2_pdf_0a34dec9.pdf",
+   "file": "1-2_CCAR-F_멀티_에이전트_오케스트레이션_마스터클래스.pdf",
+   "size": 13227496
+  },
+  {
+   "asset": "1-3_video_2940a657.mp4",
+   "file": "(s)1-3_취합_에이전트가_출처를_누락하는_진짜_이유.mp4",
+   "size": 8269378
+  },
+  {
+   "asset": "1-3_video_e671f1e7.mp4",
+   "file": "1-3_CCAR-F_Subagent Invocation and Context Passing.mp4",
+   "size": 29924872
+  },
+  {
+   "asset": "1-3_audio_dc374bfb.m4a",
+   "file": "(s)1-3_CCAR-F_1.m4a",
+   "size": 3738283
+  },
+  {
+   "asset": "1-3_audio_12f4c460.m4a",
+   "file": "1-3_CCAR-F_하위_에이전트_호출과_컨텍스트_전달.m4a",
+   "size": 50723027
+  },
+  {
+   "asset": "1-3_pdf_c29529cd.pdf",
+   "file": "1-3_CCAR-F_멀티_에이전트_마스터_가이드.pdf",
+   "size": 12967504
+  },
+  {
+   "asset": "1-4_video_92011b31.mp4",
+   "file": "(s)1-4_AI_에이전트의_치명적_실수를_막는_게이트.mp4",
+   "size": 9284082
+  },
+  {
+   "asset": "1-4_video_47ee131b.mp4",
+   "file": "1-4_CCAR-F_Workflow Enforcement and Handoff.mp4",
+   "size": 31388616
+  },
+  {
+   "asset": "1-4_audio_46132fed.m4a",
+   "file": "(s)1-4_CCAR-F_AI_통제와_상담원_핸드오프_핵심.m4a",
+   "size": 3708402
+  },
+  {
+   "asset": "1-4_audio_a3b79db0.m4a",
+   "file": "1-4_AI_사고를_방지하는_프로그래밍적_워크플로우_강제.m4a",
+   "size": 48718027
+  },
+  {
+   "asset": "1-4_pdf_5cc515a7.pdf",
+   "file": "1-4_CCAR-F_Task_1.4_Master_Guide.pdf",
+   "size": 11050318
+  },
+  {
+   "asset": "1-5_video_4359951c.mp4",
+   "file": "(s)1-5_CCAR-F_합격_치트키__에이전트_훅_완벽_분해.mp4",
+   "size": 9434261
+  },
+  {
+   "asset": "1-5_video_d4d1592a.mp4",
+   "file": "1-5_CCAR-F_Agent SDK Hooks.mp4",
+   "size": 41037903
+  },
+  {
+   "asset": "1-5_audio_94eed2fa.m4a",
+   "file": "(s)1-5_CCAR-F_합격_치트키_에이전트_SDK_훅.m4a",
+   "size": 4064855
+  },
+  {
+   "asset": "1-5_audio_6b59cd37.m4a",
+   "file": "1-5_치명적_AI_실수를_막는_에이전트_SDK_훅.m4a",
+   "size": 46334162
+  },
+  {
+   "asset": "1-5_pdf_f9053f8b.pdf",
+   "file": "1-5_Agent_SDK_Hooks_Study_Guide.pdf",
+   "size": 16082370
+  },
+  {
+   "asset": "1-6_video_8f91c2f7.mp4",
+   "file": "(s)1-6_CCAR-F_시험_대비_작업_분해_전략과_오답_피하는_법.mp4",
+   "size": 12762481
+  },
+  {
+   "asset": "1-6_video_2b268b82.mp4",
+   "file": "1-6_CCAR-F_Task Decomposition Strategies.mp4",
+   "size": 26921657
+  },
+  {
+   "asset": "1-6_audio_3b342e28.m4a",
+   "file": "(s)1-6_CCAR-F_에이전트_태스크_분해_전략_핵심.m4a",
+   "size": 4356316
+  },
+  {
+   "asset": "1-6_audio_0fe83d64.m4a",
+   "file": "1-6_CCAR-F_핵심_AI_작업_분해_전략.m4a",
+   "size": 55945232
+  },
+  {
+   "asset": "1-6_pdf_c95a988f.pdf",
+   "file": "1-6_CCAR-F_1.6_에이전트_작업_분해_마스터_가이드.pdf",
+   "size": 14792462
+  },
+  {
+   "asset": "1-7_video_4e888286.mp4",
+   "file": "(s)1-7_CCAR-F_시험_필수_개념__오래된_컨텍스트_문제.mp4",
+   "size": 7855845
+  },
+  {
+   "asset": "1-7_video_b8f8ffa1.mp4",
+   "file": "1-7_CCAR-F_Session State and Resumption.mp4",
+   "size": 36807668
+  },
+  {
+   "asset": "1-7_audio_712944f5.m4a",
+   "file": "(s)1-7_CCAR-F_세션_재개_포크_요약_선택법.m4a",
+   "size": 3540202
+  },
+  {
+   "asset": "1-7_audio_ce53e776.m4a",
+   "file": "1-7_AI_에이전트_낡은_컨텍스트_해결법.m4a",
+   "size": 33377251
+  },
+  {
+   "asset": "2-1_video_f437a658.mp4",
+   "file": "(s)2-1_도구_선택_오류를_해결하는_가장_확실한_방법.mp4",
+   "size": 9776967
+  },
+  {
+   "asset": "2-1_video_7da229bb.mp4",
+   "file": "2-1_CCAR-F_Tool Interface Design.mp4",
+   "size": 29520047
+  },
+  {
+   "asset": "2-1_audio_39d81440.m4a",
+   "file": "(s)2-1_CCAR-F_합격을_결정하는_AI_도구_설명서.m4a",
+   "size": 3533479
+  },
+  {
+   "asset": "2-1_audio_a2bb2251.m4a",
+   "file": "2-1_LLM_도구_오분류를_막는_인터페이스_설계.m4a",
+   "size": 44233424
+  },
+  {
+   "asset": "2-1_pdf_014382ba.pdf",
+   "file": "2-1_CCAR-F_LLM_Routing_Mastery.pdf",
+   "size": 11491072
+  },
+  {
+   "asset": "2-2_video_d9ca35d4.mp4",
+   "file": "(s)2-2_CCAR-F_필수__에이전트의_헛고생을_막는_오류_설계.mp4",
+   "size": 12234494
+  },
+  {
+   "asset": "2-2_video_81924bf7.mp4",
+   "file": "2-2_CCAR-F_Structured Error Responses.mp4",
+   "size": 35525692
+  },
+  {
+   "asset": "2-2_audio_96f42b67.m4a",
+   "file": "(s)2-2_CCAR-F_AI_에이전트_구조화된_오류_응답.m4a",
+   "size": 4412344
+  },
+  {
+   "asset": "2-2_audio_3dca4a7b.m4a",
+   "file": "2-2_CCAR-F_도메인_2.m4a",
+   "size": 58385197
+  },
+  {
+   "asset": "2-2_pdf_b0ae91c1.pdf",
+   "file": "2-2_CCAR-F_Structured_Error_Recovery_Guide.pdf",
+   "size": 12358983
+  },
+  {
+   "asset": "2-3_video_f25cdd90.mp4",
+   "file": "(s)2-3_CCAR-F_도구_설계_완벽_대비_전략.mp4",
+   "size": 10560090
+  },
+  {
+   "asset": "2-3_video_67678548.mp4",
+   "file": "2-3_CCAR-F_Tool Distribution & Tool Choice.mp4",
+   "size": 55226371
+  },
+  {
+   "asset": "2-3_audio_e196134b.m4a",
+   "file": "(s)2-3_AI_에이전트_도구_분배와_제한_전략.m4a",
+   "size": 4205415
+  },
+  {
+   "asset": "2-3_audio_a7710f84.m4a",
+   "file": "2-3_CCAR-F_대비_AI_에이전트_도구_분배_전략.m4a",
+   "size": 54156198
+  },
+  {
+   "asset": "2-3_pdf_b3a4e857.pdf",
+   "file": "2-3_CCAR-F_Tool_Architecture_Guide.pdf",
+   "size": 19712162
+  },
+  {
+   "asset": "2-4_video_ccc88098.mp4",
+   "file": "(s)2-4_MCP_서버_설정_파일_완벽히_구분하는_법.mp4",
+   "size": 8401812
+  },
+  {
+   "asset": "2-4_video_90b5a0f6.mp4",
+   "file": "2-4_CCAR-F_MCP Server Integration.mp4",
+   "size": 47067493
+  },
+  {
+   "asset": "2-4_audio_a35ff446.m4a",
+   "file": "(s)2-4_CCAR-F_MCP_서버_통합_필수_설정_원칙.m4a",
+   "size": 4561121
+  },
+  {
+   "asset": "2-4_pdf_16bfb908.pdf",
+   "file": "2-4_CCAR-F_Task_Integration_Guide.pdf",
+   "size": 14640586
+  },
+  {
+   "asset": "2-5_video_37a0e063.mp4",
+   "file": "(s)2-5_CCAR-F_2.mp4",
+   "size": 8317907
+  },
+  {
+   "asset": "2-5_video_4d9b4440.mp4",
+   "file": "2-5_CCAR-F_Built-in Tools.mp4",
+   "size": 36776406
+  },
+  {
+   "asset": "2-5_audio_27d084cb.m4a",
+   "file": "(s)2-5_CCAR-F_내장_도구로_토큰_아끼는_법.m4a",
+   "size": 3743513
+  },
+  {
+   "asset": "2-5_pdf_90a9bf7e.pdf",
+   "file": "2-5_CCAR-F_Domain_Master_Guide.pdf",
+   "size": 10807494
+  },
+  {
+   "asset": "3-1_video_27fcbf5c.mp4",
+   "file": "(s)3-1_신규_팀원의_Claude_Code가_코딩_규칙을_무시하는_이유.mp4",
+   "size": 9793434
+  },
+  {
+   "asset": "3-1_video_d4d36718.mp4",
+   "file": "3-1_CCAR-F_CLAUDE.md Hierarchy, Scoping, and Modular Organisation.mp4",
+   "size": 30680520
+  },
+  {
+   "asset": "3-1_audio_d2981c4c.m4a",
+   "file": "(s)3-1_CLAUDE.md_계층_구조와_settings.m4a",
+   "size": 4232308
+  },
+  {
+   "asset": "3-1_pdf_9234f7a1.pdf",
+   "file": "3-1_CLAUDE.md_Hierarchy_and_Scoping_Guide.pdf",
+   "size": 13394345
+  },
+  {
+   "asset": "3-2_video_d105dbd7.mp4",
+   "file": "(s)3-2_클로드_코드_커스텀_스킬_CCAR-F_완벽_대비.mp4",
+   "size": 12455980
+  },
+  {
+   "asset": "3-2_video_9dc2922f.mp4",
+   "file": "3-2_CCAR-F_Custom Slash Commands and Skills.mp4",
+   "size": 32194097
+  },
+  {
+   "asset": "3-2_audio_9c25aa25.m4a",
+   "file": "(s)3-2_CCAR-F_3.2_스킬과_CLAUDE.m4a",
+   "size": 4110425
+  },
+  {
+   "asset": "3-2_pdf_a7b3716a.pdf",
+   "file": "3-2_CCAR-F_Skills_System_Exam_Guide.pdf",
+   "size": 11357705
+  },
+  {
+   "asset": "3-3_video_812c8985.mp4",
+   "file": "(s)3-3_특정_경로_규칙이_토큰을_절약하는_원리.mp4",
+   "size": 5342458
+  },
+  {
+   "asset": "3-3_video_9f242349.mp4",
+   "file": "3-3_Path-Specific_Rules_for_Conditional_Convention_Loading.mp4",
+   "size": 45679463
+  },
+  {
+   "asset": "3-3_audio_b087183e.m4a",
+   "file": "(s)3-3_Glob_패턴으로_AI_토큰_낭비_막기.m4a",
+   "size": 3770406
+  },
+  {
+   "asset": "3-3_audio_68cde3ca.m4a",
+   "file": "3-3_경로별_규칙으로_클로드_컨텍스트_오염_막기.m4a",
+   "size": 43701301
+  },
+  {
+   "asset": "3-3_pdf_9a233314.pdf",
+   "file": "3-3_Mastering_Path-Specific_Rules.pdf",
+   "size": 13567268
+  },
+  {
+   "asset": "3-4_video_f41eb324.mp4",
+   "file": "(s)3-4_클로드_코드_플랜_모드와_직접_실행_완벽_정복.mp4",
+   "size": 10860937
+  },
+  {
+   "asset": "3-4_video_f7b9f8ed.mp4",
+   "file": "3-4_CCAR-F_Plan Mode vs Direct Execution.mp4",
+   "size": 39094468
+  },
+  {
+   "asset": "3-4_audio_4bf893f7.m4a",
+   "file": "(s)3-4_CCAR-F_계획_모드와_직접_실행_선택법.m4a",
+   "size": 3130709
+  },
+  {
+   "asset": "3-4_audio_1f3bf706.m4a",
+   "file": "3-4_클로드_코드_계획_모드와_권한_통제.m4a",
+   "size": 37817031
+  },
+  {
+   "asset": "3-4_pdf_d122e6d3.pdf",
+   "file": "3-4_CCAR-F_Execution_Mode_Guide.pdf",
+   "size": 13625563
+  },
+  {
+   "asset": "3-5_video_e8a59f3c.mp4",
+   "file": "(s)3-5_CCAR-F_시험_완벽_대비__Claude_Code_피드백_기법_5가지.mp4",
+   "size": 8836731
+  },
+  {
+   "asset": "3-5_video_aedb30f8.mp4",
+   "file": "3-5_CCAR-F_Iterative_Refinement_Techniques.mp4",
+   "size": 32913762
+  },
+  {
+   "asset": "3-5_audio_afaf78e0.m4a",
+   "file": "(s)3-5_Claude_Code를_제어하는_상황별_피드백_전략.m4a",
+   "size": 3836145
+  },
+  {
+   "asset": "3-5_audio_ab111d8c.m4a",
+   "file": "3-5_AI_오답을_피하는_5가지_반복_개선_기법.m4a",
+   "size": 38958970
+  },
+  {
+   "asset": "3-5_pdf_c0ed6fc0.pdf",
+   "file": "3-5_CCAR-F_Iterative_Refinement_Guide.pdf",
+   "size": 12239927
+  },
+  {
+   "asset": "3-6_video_f3b3bfe0.mp4",
+   "file": "(s)3-6_클로드_코드_CI_CD_통합,_시험에_무조건_나오는_4가지_핵심.mp4",
+   "size": 16377853
+  },
+  {
+   "asset": "3-6_video_8a53b00e.mp4",
+   "file": "3-6_CCAR-F_CICD Integration.mp4",
+   "size": 38644404
+  },
+  {
+   "asset": "3-6_audio_ef8436fb.m4a",
+   "file": "(s)3-6_CCAR-F_3.m4a",
+   "size": 4157488
+  },
+  {
+   "asset": "3-6_audio_944db567.m4a",
+   "file": "3-6_클로드_코드의_헤드리스_CI_파이프라인_통합.m4a",
+   "size": 44483051
+  },
+  {
+   "asset": "3-6_pdf_ece9fdc5.pdf",
+   "file": "3-6_CCAR-F_Claude_Code_CI_CD_Blueprint.pdf",
+   "size": 17061377
+  },
+  {
+   "asset": "4-1_video_5f5ebb89.mp4",
+   "file": "(s)4-1_명시적_기준__AI의_오탐을_막는_프롬프트_설계법.mp4",
+   "size": 13030131
+  },
+  {
+   "asset": "4-1_video_a25869d3.mp4",
+   "file": "4-1_CCAR-F_System Prompts with Explicit Criteria.mp4",
+   "size": 33110341
+  },
+  {
+   "asset": "4-1_audio_29cc4236.m4a",
+   "file": "(s)4-1_CCAR-F_합격을_위한_명시적_프롬프트_작성법.m4a",
+   "size": 4039456
+  },
+  {
+   "asset": "4-1_audio_2a68ad57.m4a",
+   "file": "4-1_AI_프롬프트에_명시적_기준이_필요한_이유.m4a",
+   "size": 44744631
+  },
+  {
+   "asset": "4-1_pdf_1e6a0b93.pdf",
+   "file": "4-1_CCAR-F_System_Prompt_Guide.pdf",
+   "size": 15397422
+  },
+  {
+   "asset": "4-2_video_96d9dffb.mp4",
+   "file": "(s)4-2_클로드의_답변_일관성을_높이는_퓨샷_프롬프팅.mp4",
+   "size": 16184617
+  },
+  {
+   "asset": "4-2_video_9f51c1c3.mp4",
+   "file": "4-2_CCAR-F_Few-Shot Prompting.mp4",
+   "size": 26427436
+  },
+  {
+   "asset": "4-2_audio_9390d2a4.m4a",
+   "file": "(s)4-2_CCAR-F_퓨샷_프롬프팅_핵심_전략.m4a",
+   "size": 3476704
+  },
+  {
+   "asset": "4-2_audio_0e5ed26b.m4a",
+   "file": "4-2_추론과_2~4개_예시의_퓨샷_프롬프팅.m4a",
+   "size": 40929607
+  },
+  {
+   "asset": "4-2_pdf_864b5afb.pdf",
+   "file": "4-2_CCAR-F_퓨샷_프롬프팅_완벽_가이드.pdf",
+   "size": 15237450
+  },
+  {
+   "asset": "4-3_video_bb75b87f.mp4",
+   "file": "(s)4-3_Claude의_환각을_막는_JSON_스키마_설계법.mp4",
+   "size": 9491048
+  },
+  {
+   "asset": "4-3_video_50af1621.mp4",
+   "file": "4-3_CCAR-F_Structured Output with Tool Use.mp4",
+   "size": 38806970
+  },
+  {
+   "asset": "4-3_audio_8b0b2b51.m4a",
+   "file": "(s)4-3_클로드_환각을_막는_방어적_스키마.m4a",
+   "size": 4347352
+  },
+  {
+   "asset": "4-3_audio_0325c201.m4a",
+   "file": "4-3_환각을_막는_클로드_툴_유즈_스키마.m4a",
+   "size": 30457528
+  },
+  {
+   "asset": "4-3_pdf_bb5f0fdf.pdf",
+   "file": "4-3_CCAR-F_구조화된_출력_마스터_가이드.pdf",
+   "size": 15939386
+  },
+  {
+   "asset": "4-4_video_cb2c9d8a.mp4",
+   "file": "(s)4-4_재시도_유효성_경계로_AI_추출_오류_고치는_법.mp4",
+   "size": 5676465
+  },
+  {
+   "asset": "4-4_video_c8a4ef88.mp4",
+   "file": "4-4_CCAR-F_Validation, Retry, and Feedback Loops.mp4",
+   "size": 38609333
+  },
+  {
+   "asset": "4-4_audio_12cb0bb9.m4a",
+   "file": "(s)4-4_CCAR-F_AI_오류_검증과_재시도_한계.m4a",
+   "size": 4370510
+  },
+  {
+   "asset": "4-4_audio_a4f7af66.m4a",
+   "file": "4-4_의미론적_오류와_AI_재시도_루프_설계.m4a",
+   "size": 57127467
+  },
+  {
+   "asset": "4-4_pdf_85ce1e5e.pdf",
+   "file": "4-4_CCAR-F_스마트_검수_파이프라인_Guide.pdf",
+   "size": 13294552
+  },
+  {
+   "asset": "4-5_video_35761df6.mp4",
+   "file": "(s)4-5_CCAR-F_완벽_대비__비용을_반으로_줄이는_Batch_Processing_매칭_규칙.mp4",
+   "size": 10718045
+  },
+  {
+   "asset": "4-5_video_cc2039e9.mp4",
+   "file": "4-5_CCAR-F_Batch Processing Strategies.mp4",
+   "size": 36326087
+  },
+  {
+   "asset": "4-5_audio_59e13eb3.m4a",
+   "file": "(s)4-5_CCAR-F_배치_API_비용_반토막_전략.m4a",
+   "size": 3651627
+  },
+  {
+   "asset": "4-5_audio_df3c867e.m4a",
+   "file": "4-5_CCAR-F_배치_API_설계와_시험_함정.m4a",
+   "size": 46245148
+  },
+  {
+   "asset": "4-5_pdf_566ff4de.pdf",
+   "file": "4-5_CCAR-F_배치_처리_전략_가이드.pdf",
+   "size": 10211734
+  },
+  {
+   "asset": "4-6_video_8c665f5c.mp4",
+   "file": "(s)4-6_AI가_대규모_코드를_완벽하게_검토하는_방법.mp4",
+   "size": 10946734
+  },
+  {
+   "asset": "4-6_video_80dac94a.mp4",
+   "file": "4-6_CCAR-F_Multi-Instance and Multi-Pass Review.mp4",
+   "size": 38938721
+  },
+  {
+   "asset": "4-6_audio_413782ca.m4a",
+   "file": "(s)4-6_CCAR-F_AI_다중_인스턴스_검토_설계.m4a",
+   "size": 4374245
+  },
+  {
+   "asset": "4-6_pdf_48069494.pdf",
+   "file": "4-6_Multi_Pass_AI_Review_Architecture.pdf",
+   "size": 13107543
+  },
+  {
+   "asset": "5-1_video_3c393ea8.mp4",
+   "file": "(s)5-1_지속적_사건_정보_블록__AI_기억_상실증의_구조적_해결책.mp4",
+   "size": 9223078
+  },
+  {
+   "asset": "5-1_video_fff4ad3d.mp4",
+   "file": "5-1_CCAR-F_Context Window Management.mp4",
+   "size": 36904241
+  },
+  {
+   "asset": "5-1_audio_8181295a.m4a",
+   "file": "(s)5-1_CCAR-F_5.m4a",
+   "size": 4277877
+  },
+  {
+   "asset": "5-1_audio_08ee6c4a.m4a",
+   "file": "5-1_AI_망각을_막는_컨텍스트_윈도우_최적화.m4a",
+   "size": 37496436
+  },
+  {
+   "asset": "5-1_pdf_f01454d8.pdf",
+   "file": "5-1_CCAR-F_Context_Window_Blueprint.pdf",
+   "size": 15869259
+  },
+  {
+   "asset": "5-2_video_9f57c2cb.mp4",
+   "file": "(s)5-2_CCAR-F_완벽_대비__올바른_에스컬레이션_판단법.mp4",
+   "size": 11349773
+  },
+  {
+   "asset": "5-2_video_4cf43034.mp4",
+   "file": "5-2_CCAR-F_Escalation & Ambiguity Resolution.mp4",
+   "size": 31591667
+  },
+  {
+   "asset": "5-2_audio_1ef00273.m4a",
+   "file": "(s)5-2_CCAR-F_합격_필수_AI_에스컬레이션_조건.m4a",
+   "size": 3807758
+  },
+  {
+   "asset": "5-2_audio_120b3184.m4a",
+   "file": "5-2_CCAR-F_AI_에스컬레이션_정답과_함정.m4a",
+   "size": 23109230
+  },
+  {
+   "asset": "5-2_pdf_4d57c329.pdf",
+   "file": "5-2_CCAR-F_Escalation_Blueprint.pdf",
+   "size": 11258841
+  },
+  {
+   "asset": "5-3_video_51619f9a.mp4",
+   "file": "(s)5-3_CCAR-F_Error Propagation in Multi-Agent Systems.mp4",
+   "size": 11102074
+  },
+  {
+   "asset": "5-3_video_fd397f7b.mp4",
+   "file": "5-3_CCAR-F_Error Propagation in Multi-Agent Systems.mp4",
+   "size": 40919173
+  },
+  {
+   "asset": "5-3_audio_1e4a0758.m4a",
+   "file": "(s)5-3_CCAR-F_다중_에이전트_오류_전파와_복구.m4a",
+   "size": 3945329
+  },
+  {
+   "asset": "5-3_audio_b647a9bd.m4a",
+   "file": "5-3_멀티에이전트_시스템의_에러_전파와_복구_전략.m4a",
+   "size": 48055171
+  },
+  {
+   "asset": "5-3_pdf_2f92a24a.pdf",
+   "file": "5-3_CCAR-F_멀티_에이전트_에러_전파_가이드.pdf",
+   "size": 16500561
+  },
+  {
+   "asset": "5-4_video_cd700bd3.mp4",
+   "file": "(s)5-4_CCAR-F_필수__컨텍스트_저하_완벽_공략법.mp4",
+   "size": 8753824
+  },
+  {
+   "asset": "5-4_video_b1441ba8.mp4",
+   "file": "5-4_CCAR-F_Codebase Exploration & Context Degradation.mp4",
+   "size": 31548749
+  },
+  {
+   "asset": "5-4_audio_85b11e8e.m4a",
+   "file": "(s)5-4_CCAR-F_AI_컨텍스트_저하_해결법.m4a",
+   "size": 4408609
+  },
+  {
+   "asset": "5-4_pdf_5f343635.pdf",
+   "file": "5-4_CCAR-F_Codebase_Exploration_Strategy.pdf",
+   "size": 17804602
+  },
+  {
+   "asset": "5-5_video_01d8ec06.mp4",
+   "file": "(s)5-5_CCAR-F_시험_완벽_대비__AI_신뢰도_보정과_검토_자동화의_함정.mp4",
+   "size": 10194994
+  },
+  {
+   "asset": "5-5_video_cb2419b7.mp4",
+   "file": "5-5_CCAR-F_Human Review & Confidence Calibration.mp4",
+   "size": 41528287
+  },
+  {
+   "asset": "5-5_audio_25bac79d.m4a",
+   "file": "(s)5-5_CCAR-F_AI_신뢰도_보정과_인적_검토.m4a",
+   "size": 3909471
+  },
+  {
+   "asset": "5-5_pdf_714dafd0.pdf",
+   "file": "5-5_CCAR-F_Exam_Guide.pdf",
+   "size": 11308351
+  },
+  {
+   "asset": "5-6_video_f7da370f.mp4",
+   "file": "(s)5-6_AI_요약의_치명적_오류를_막는_주장-출처_매핑.mp4",
+   "size": 15395883
+  },
+  {
+   "asset": "5-6_video_a8a14135.mp4",
+   "file": "5-6_CCAR-F_Information Provenance & Multi-Source Synthesis.mp4",
+   "size": 38443942
+  },
+  {
+   "asset": "5-6_audio_62fadaf0.m4a",
+   "file": "(s)5-6_CCAR-F_출처_매핑과_정보_통합_합격_전략.m4a",
+   "size": 3399759
+  },
+  {
+   "asset": "5-6_pdf_3a1e47cc.pdf",
+   "file": "5-6_CCAR-F_Information_Provenance_Playbook.pdf",
+   "size": 9860198
+  }
+ ]
+}

@@ -26,7 +26,7 @@ Live site (GitHub Pages): **https://kdkim2000.github.io/claude-certified-archite
 2. [Features](#features)
 3. [Repository layout](#repository-layout)
 4. [Local build guide](#local-build-guide)
-5. [Local media (video / audio / PDF)](#local-media-video--audio--pdf)
+5. [Media hosting (video / audio / PDF)](#media-hosting-video--audio--pdf)
 6. [Deploy to GitHub Pages](#deploy-to-github-pages)
 7. [Adding or updating content](#adding-or-updating-content)
 8. [Troubleshooting](#troubleshooting)
@@ -188,12 +188,21 @@ Smoke test checklist:
 
 ---
 
-## Local media (video / audio / PDF)
+## Media hosting (video / audio / PDF)
 
-The Task mode can play the lecture videos, audio summaries and PDF guides that sit in `AICG/` — but they total ≈ 2.4 GB, so they are **never committed or deployed** (only the compressed infographics, ≈ 3.5 MB, are).
+The Task mode plays the lecture videos, audio summaries and PDF guides from `AICG/` (≈ 2.9 GB, 141 files, each under 60 MB). They are too large for the repository and for GitHub Pages (1 GB site limit), so they are **published as assets of the GitHub release [`media-v1`](https://github.com/kdkim2000/claude-certified-architect-practice-exam/releases/tag/media-v1)** and never committed. Only the compressed infographics (≈ 3.5 MB) are in the repo.
 
-- Start the site with **`node scripts/serve.mjs`** (it serves the parent folder, so `../AICG/…` is reachable and Range requests work).
-- Open `tasks.html#/<task>/media` (e.g. `#/1.1/media`): the page probes `../AICG/…`; if reachable it shows ▶ play / open buttons, otherwise it shows a note that the files are local-only (this is what visitors see on GitHub Pages).
+- **Where the page plays from.** `tasks.html#/<task>/media` first probes `../AICG/…`. If it is reachable (local run with `node scripts/serve.mjs`) it plays the local files; otherwise (GitHub Pages) it streams the release assets. Videos and audio stream with seeking; PDFs are served as downloads by GitHub. If a file cannot be played, the row turns into a download link.
+- **Asset names.** GitHub mangles non-ASCII file names, so each file gets a stable ASCII alias `<task>_<kind>_<sha1 of the source name, 8 hex>.<ext>` (e.g. `1-1_video_54c6aef5.mp4`). `scripts/build-tasks.mjs` writes it into `tasks/manifest.js` and the upload list `tasks/media-assets.json`.
+- **Publishing / updating media** (needs the GitHub CLI, `gh auth login`):
+
+  ```bash
+  node scripts/build-tasks.mjs ../AICG          # refresh manifest + tasks/media-assets.json
+  node scripts/upload-media.mjs ../AICG --dry-run   # show what would be uploaded
+  node scripts/upload-media.mjs ../AICG --prune     # upload new/changed files, delete assets no longer listed
+  ```
+
+  The upload script is idempotent: it skips assets that already exist with the same size and verifies all sizes at the end. Renaming a source file changes its alias, so re-run the upload and commit the rebuilt manifest together.
 
 ---
 
