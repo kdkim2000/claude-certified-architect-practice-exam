@@ -5,9 +5,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 8,
+    "h2": 12,
     "h3": 0,
-    "chars": 5972
+    "chars": 9251
    },
    "points": {
     "h2": 4,
@@ -32,9 +32,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 7,
+    "h2": 11,
     "h3": 1,
-    "chars": 5513
+    "chars": 8510
    },
    "points": {
     "h2": 4,
@@ -59,9 +59,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 7,
+    "h2": 11,
     "h3": 1,
-    "chars": 5669
+    "chars": 8922
    },
    "points": {
     "h2": 4,
@@ -86,9 +86,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 7,
+    "h2": 11,
     "h3": 0,
-    "chars": 4827
+    "chars": 7967
    },
    "points": {
     "h2": 4,
@@ -113,9 +113,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 9,
+    "h2": 13,
     "h3": 1,
-    "chars": 6396
+    "chars": 11380
    },
    "points": {
     "h2": 4,
@@ -140,9 +140,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 6,
+    "h2": 10,
     "h3": 0,
-    "chars": 3854
+    "chars": 7483
    },
    "points": {
     "h2": 4,
@@ -167,9 +167,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 6,
+    "h2": 10,
     "h3": 0,
-    "chars": 3256
+    "chars": 6589
    },
    "points": {
     "h2": 4,
@@ -194,9 +194,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 6,
+    "h2": 10,
     "h3": 0,
-    "chars": 2763
+    "chars": 5928
    },
    "points": {
     "h2": 4,
@@ -221,9 +221,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 5,
+    "h2": 9,
     "h3": 0,
-    "chars": 3201
+    "chars": 6609
    },
    "points": {
     "h2": 4,
@@ -248,9 +248,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 7,
+    "h2": 11,
     "h3": 0,
-    "chars": 3667
+    "chars": 8148
    },
    "points": {
     "h2": 4,
@@ -275,9 +275,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 7,
+    "h2": 11,
     "h3": 0,
-    "chars": 3700
+    "chars": 7401
    },
    "points": {
     "h2": 4,
@@ -302,9 +302,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 6,
+    "h2": 10,
     "h3": 0,
-    "chars": 2807
+    "chars": 6142
    },
    "points": {
     "h2": 4,
@@ -329,9 +329,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 5,
   "counts": {
    "notes": {
-    "h2": 5,
+    "h2": 9,
     "h3": 2,
-    "chars": 3237
+    "chars": 6721
    },
    "points": {
     "h2": 4,
@@ -356,9 +356,9 @@ window.GUIDE_MANIFEST=[
   "quizCount": 0,
   "counts": {
    "notes": {
-    "h2": 6,
-    "h3": 0,
-    "chars": 3881
+    "h2": 9,
+    "h3": 12,
+    "chars": 8648
    },
    "points": {
     "h2": 4,
