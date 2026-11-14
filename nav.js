@@ -13,7 +13,7 @@
     tasks: [["🏠 홈", "tasks.html#/"], ["⚠️ 시험 함정 모음", "tasks.html#/traps"], ["❌ 오답 복습", "tasks.html#/review"]],
     guide: [["🏠 홈", "guide.html#/"], ["❌ 오답 복습", "guide.html#/review"]],
     exam: [["실전 1", "index.html?set=practice-1"], ["실전 2", "index.html?set=practice-2"], ["실전 3", "index.html?set=practice-3"],
-           ["실전 4", "index.html"], ["실전형 시나리오 (6중 4 무작위)", "index.html?set=scenario-pool"]]
+           ["실전 4", "index.html"], ["실전 5", "index.html?set=practice-5"], ["실전 6", "index.html?set=practice-6"], ["실전형 시나리오 (6중 4 무작위)", "index.html?set=scenario-pool"]]
   };
   var css = "#gnav{position:" + (page === "exam" ? "relative" : "sticky") + ";top:0;z-index:50;background:var(--panel,#fff);border-bottom:1px solid var(--line,#e6e2db);font:14px/1.4 -apple-system,BlinkMacSystemFont,'Segoe UI','Malgun Gothic',sans-serif}" +
     "#gnav .in{max-width:1180px;margin:0 auto;padding:0 16px}" +

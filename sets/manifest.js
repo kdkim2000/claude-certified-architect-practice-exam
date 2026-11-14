@@ -16,6 +16,14 @@ window.EXAM_SETS = [
   "title": "실전 모의고사 4 (60)"
  },
  {
+  "id": "practice-5",
+  "title": "실전 모의고사 5 (60)"
+ },
+ {
+  "id": "practice-6",
+  "title": "실전 모의고사 6 (60)"
+ },
+ {
   "id": "scenario-pool",
   "title": "실전형 시나리오 (6개 중 4개 무작위 · 60)"
  }

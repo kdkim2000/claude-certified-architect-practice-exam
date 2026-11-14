@@ -1,6 +1,6 @@
 # Claude Certified Architect – Foundations (CCAR-F): Practice Exam + Study Site
 
-An unofficial Korean-language study site for the Anthropic **Claude Certified Architect – Foundations** certification (exam code **CCAR-F**). It grew from a single 60-question practice exam into four study areas and five mock exams.
+An unofficial Korean-language study site for the Anthropic **Claude Certified Architect – Foundations** certification (exam code **CCAR-F**). It grew from a single 60-question practice exam into four study areas and seven mock exams.
 
 **Live site (GitHub Pages): https://kdkim2000.github.io/claude-certified-architect-practice-exam/**
 
@@ -33,7 +33,7 @@ Every page shares one top menu (`nav.js`), in this order, with a second row of p
 | 📚 **섹션별 학습** | [`study.html`](study.html) | 18 course chapters (S02–S19): lecture notes, exam supplements, cheat sheets, 20 practice questions each (**360**) | 🏠 홈 · ❌ 오답 복습 |
 | 🎯 **Task별 학습** | [`tasks.html`](tasks.html) | The 30 official Task Statements (1.1–5.6): notes, *In the Exam* / *Exam Traps*, build-exercise checklists, **98** practice scenarios, 30 infographics and **141** videos, audio summaries and PDF guides (streamed online) | 🏠 홈 · ⚠️ 시험 함정 모음 · ❌ 오답 복습 |
 | 📘 **가이드 학습** | [`guide.html`](guide.html) | 13 technology units + 1 hands-on unit, with Korean notes, exam points and 5 check questions per unit (**65**). The home page covers the exam format, out-of-scope topics and a study plan | 🏠 홈 · ❌ 오답 복습 |
-| 📝 **모의고사** | [`index.html`](index.html) | Five 60-question mock exams (below), each with study and exam modes | 실전 1 · 실전 2 · 실전 3 · 실전 4 · 실전형 시나리오 |
+| 📝 **모의고사** | [`index.html`](index.html) | Seven mock exams (below), each with study and exam modes | 실전 1 · 실전 2 · 실전 3 · 실전 4 · 실전 5 · 실전 6 · 실전형 시나리오 |
 
 The menu is hidden while a mock exam is in progress; the exam's **🚪 나가기** button saves the attempt and brings it back.
 
@@ -45,12 +45,14 @@ The menu is hidden while a mock exam is in progress; the exam's **🚪 나가기
 | 실전 모의고사 2 | `index.html?set=practice-2` | 60 | fixed set, Korean explanations |
 | 실전 모의고사 3 | `index.html?set=practice-3` | 60 | fixed set, 4 scenarios × 15. New questions on the checkpoints tested by the community study guide's sample and practice questions |
 | 실전 모의고사 4 | `index.html` (default) | 60 | the upstream bank (`questions/ccar-f.md`), English and 🇰🇷 Korean explanations |
+| 실전 모의고사 5 | `index.html?set=practice-5` | 60 | from `Exam1_D1..D5.md`; domains in order D1→D5 (17/11/12/12/8), renumbered Q1–Q60; Korean notes plus the official explanation |
+| 실전 모의고사 6 | `index.html?set=practice-6` | 60 | from `Exam2_D1..D5.md` (16/10/12/12/10), domains in order D1→D5, renumbered Q1–Q60; Korean notes plus the official explanation |
 | 실전형 시나리오 | `index.html?set=scenario-pool` | 60 drawn from 169 | **real-exam draw**: 4 of the 6 official scenarios at random, 15 questions each |
 
 Shared across all sets:
 
 - Every question is single-answer with 4 options, as in the official exam.
-- Every attempt has exactly the official domain weighting: **D1 16 · D2 11 · D3 12 · D4 12 · D5 9** (27 / 18 / 20 / 20 / 15 %). For the scenario pool, per-domain counts are picked on each draw to meet it.
+- Every attempt of 실전 1–4 and the scenario pool has exactly the official domain weighting (실전 5 and 6 keep the domain mix of their source exams, so they differ slightly): **D1 16 · D2 11 · D3 12 · D4 12 · D5 9** (27 / 18 / 20 / 20 / 15 %). For the scenario pool, per-domain counts are picked on each draw to meet it.
 - Answer letters are balanced, and the correct option is not given away by its length: it is the longest option in 15–28 % of questions per set (about the 25 % of chance).
 
 ---
@@ -142,7 +144,7 @@ claude-certified-architect-practice-exam/
 ├─ tasks.html                 Task별 학습
 ├─ guide.html                 가이드 학습
 ├─ nav.js                     shared top menu for all pages
-├─ sets/                      GENERATED  practice-1..3, scenario-pool + manifest.js
+├─ sets/                      GENERATED  practice-1..3, 5, 6, scenario-pool + manifest.js
 ├─ study/                     GENERATED  18 chapters (Sxx.js) + manifest.js
 ├─ tasks/                     GENERATED  30 tasks (Tx_y.js) + manifest.js + media-assets.json + img/*.webp
 ├─ guide/                     GENERATED  14 units (Gxx.js) + manifest.js
@@ -150,7 +152,7 @@ claude-certified-architect-practice-exam/
 ├─ vendor/marked.min.js       Markdown renderer (vendored, no CDN)
 ├─ scripts/
 │  ├─ sync-bank.mjs           JSON bank       -> index.html data + questions/ccar-f.md
-│  ├─ build-sets.mjs          mock-exam .md   -> sets/      (checks 16/11/12/12/9)
+│  ├─ build-sets.mjs          mock-exam .md   -> sets/      (checks 16/11/12/12/9; 실전 5, 6 from Exam*_D*.md)
 │  ├─ build-study.mjs         section notes   -> study/
 │  ├─ build-tasks.mjs         AICG notes+media-> tasks/
 │  ├─ build-guide.mjs         가이드학습/*.md -> guide/
@@ -181,6 +183,7 @@ Rebuild only when **source content changes**. Source files are *not* in this rep
 ```
 <content folder>/                         <- parent of the repo
 ├─ 실전테스트1.md  실전테스트2.md  실전테스트3.md  시나리오실전풀.md   -> build-sets
+├─ Exam1_D1.md … Exam1_D5.md  Exam2_D1.md … Exam2_D5.md              -> build-sets (실전 5, 6)
 ├─ CCAR-F_D1_S02_..._notes.md … CCAR-F_D5_S19_..._notes.md (18 files)  -> build-study
 ├─ 가이드학습/G00_home.md, G01_….md … G14_….md                          -> build-guide
 ├─ AICG/                                  <- Task content                 -> build-tasks, upload-media
@@ -196,6 +199,7 @@ Each script also accepts the folder as its first argument.
 | Content | Pattern | Example |
 |---|---|---|
 | Mock-exam Markdown | fixed names in `SETS` of `scripts/build-sets.mjs` | `실전테스트3.md` |
+| Mock-exam per-domain files (실전 5, 6) | `Exam<k>_D<d>.md`, `### Qn.` blocks with `- A.`–`- D.` options and the correct one marked ✅ | `Exam1_D1.md` |
 | Section notes | `CCAR-F_D<d>_S<nn>_<Title>_notes.md` | `CCAR-F_D1_S02_Agentic-Architecture-Foundations_notes.md` |
 | Guide units | `G<nn>_<slug>.md` in `가이드학습/` (`G00` = home page) | `G05_claude-code-config-workflows.md` |
 | Task notes | `<d>.<t>_<Slug>_EN.md` | `1.1_Agentic-Loops_EN.md` |
@@ -208,7 +212,8 @@ Each script also accepts the folder as its first argument.
 Run from the repository root. Every script **exits with code 1** if content would be lost or malformed, so a clean run doubles as a check.
 
 ```bash
-node scripts/build-sets.mjs      # 4 sets; checks options, answer-key table, fixed sets = 60 at exactly 16/11/12/12/9
+node scripts/build-sets.mjs      # 6 sets; checks options, answer-key table, fixed sets = 60 at exactly 16/11/12/12/9;
+                                 # 실전 5, 6: 60 questions, per-domain counts equal to the source, Q numbers 1..60
 node scripts/build-study.mjs     # 18 chapters x 20 questions; heading counts source == output
 node scripts/build-guide.mjs     # 14 units; required sections, 5 questions x 4 options with an answer
 python scripts/png2webp.py ../AICG      # infographics first (Pillow)
@@ -231,7 +236,7 @@ node scripts/serve.mjs 9000      # other port
 Smoke test:
 
 - The top menu shows four items on every page, with the current one highlighted.
-- `/` opens 실전 모의고사 4. The **문제셋** dropdown lists 실전 1–4 and 실전형 시나리오.
+- `/` opens 실전 모의고사 4. The **문제셋** dropdown lists 실전 1–6 and 실전형 시나리오.
 - `/?set=scenario-pool`: every start draws a new combination of 4 scenarios, and each question shows "Scenario *k* of 4".
 - During an exam, **🚪 나가기** returns to the start screen, and **Resume** continues the attempt.
 - `/study.html`, `/tasks.html` and `/guide.html`: open a card, switch tabs, and answer a question.
@@ -280,7 +285,8 @@ When you add a new top-level page or folder, add it to the workflow's copy step 
 | I want to… | Do this |
 |---|---|
 | Fix a question in 실전 1–3 or the scenario pool | edit the `.md` in the content folder → `node scripts/build-sets.mjs` → commit `sets/` |
-| Add a new mock-exam set | add an entry to `SETS` in `scripts/build-sets.mjs` (id, file, title; `count: null` + `pool` for a scenario pool) → rebuild. Add a menu link in `nav.js` |
+| Fix a question in 실전 5 or 6 | edit `Exam1_D*.md` / `Exam2_D*.md` in the content folder → `node scripts/build-sets.mjs` → commit `sets/` |
+| Add a new mock-exam set | add an entry to `SETS` in `scripts/build-sets.mjs` (id, file, title; `count: null` + `pool` for a scenario pool; `prefix` + `expect` + `order` for per-domain `Exam<k>_D*.md` files) → rebuild. Add a menu link in `nav.js` |
 | Update 실전 모의고사 4 | edit the JSON bank → `node scripts/sync-bank.mjs <bank.json>` → commit `index.html` and `questions/ccar-f.md` |
 | Edit a section note or its quiz | edit `CCAR-F_D*_S*_notes.md` → `node scripts/build-study.mjs` → commit `study/` |
 | Edit a guide unit | edit `가이드학습/Gnn_*.md` → `node scripts/build-guide.mjs` → commit `guide/` |

@@ -12,6 +12,11 @@ const SETS = [
   { id: "practice-1", file: "실전테스트1.md", title: "실전 모의고사 1", sub: "Practice Exam 1 · 60 Questions" },
   { id: "practice-2", file: "실전테스트2.md", title: "실전 모의고사 2", sub: "Practice Exam 2 · 60 Questions" },
   { id: "practice-3", file: "실전테스트3.md", title: "실전 모의고사 3", sub: "Practice Exam 3 · 4 Scenarios · 60 Questions" },
+  // Per-domain note files (Exam<k>_D1..D5.md, no key table). Counts are whatever the source exam had, so the
+  // 16/11/12/12/9 weighting is not enforced; the expected per-domain counts are checked instead.
+  // order "domain": D1..D5, renumbered Q1..Q60. order "original": the source exam's own Q numbers (1..60).
+  { id: "practice-5", prefix: "Exam1", order: "domain", expect: [17, 11, 12, 12, 8], title: "실전 모의고사 5", sub: "Practice Exam 5 · 60 Questions · D1→D5 순서" },
+  { id: "practice-6", prefix: "Exam2", order: "domain", expect: [16, 10, 12, 12, 10], title: "실전 모의고사 6", sub: "Practice Exam 6 · 60 Questions · D1→D5 순서" },
   // Real-exam format: 6 official scenarios in one pool; each attempt draws 4 scenarios x 15 questions,
   // with the domain totals fixed to the official weighting (target). count: null = any size, checked below.
   { id: "scenario-pool", file: "시나리오실전풀.md", title: "실전형 시나리오 모의고사", sub: "6개 시나리오 중 4개 무작위 · 60 Questions", count: null,
@@ -28,7 +33,53 @@ const META = {
 const clean = (s) => s.replace(/^```.*$/gm, "").replace(/\*\*/g, "").replace(/\n{3,}/g, "\n\n").trim();
 const fail = (m) => { console.error("ERROR: " + m); process.exit(1); };
 
+// Source tables become "a — b" lines; separator rows are dropped.
+const flat = (t) => t.split("\n").filter((l) => !/^\|[\s:|-]+\|?$/.test(l))
+  .map((l) => /^\|.*\|$/.test(l.trim()) ? l.trim().slice(1, -1).split("|").map((c) => c.trim()).join(" — ") : l).join("\n");
+
+// Drops what only made sense in the source notes: the note-taker's remarks, "(Exam1 D1 Q36 …)" cross-references to
+// source question numbers, and "(이후 문장은 화면에서 잘림)" truncation marks.
+const scrub = (t) => t.split("\n").filter((l) => !/제가/.test(l)).join("\n")
+  .replace(/[ \t]*\((?:Exam\d|D\d Q)[^()]*\)/g, "").replace(/, Exam\d D\d Q\d+(?=\))/g, "").replace(/[ \t]*\(이후 [^()]*\)/g, "")
+  .replace(/^[ \t]*$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+
+function parseDomainFiles(set) {
+  const all = [];
+  for (let d = 1; d <= 5; d++) {
+    const md = readFileSync(join(src, `${set.prefix}_D${d}.md`), "utf8").replace(/\r\n/g, "\n");
+    const blocks = md.split(/^### Q(?=\d+\. )/m).slice(1);
+    for (const b of blocks) {
+      const n = +b.match(/^(\d+)\./)[1];
+      const tag = `${set.id} D${d} Q${n}`;
+      const body = b.split(/^## /m)[0].replace(/^---$/gm, "").replace(/\*\*시험 함정 패턴\*\*[\s\S]*$/, "");
+      const qm = body.match(/\*\*Question\.\*\* ([\s\S]*?)\n\n- /);
+      if (!qm) fail(`${tag}: no question`);
+      const opts = [...body.matchAll(/^- (?:\*\*)?([A-D])\. (.*?)(?:\*\*)?( ✅)?$/gm)];
+      if (opts.map((o) => o[1]).join("") !== "ABCD") fail(`${tag}: options ${opts.map((o) => o[1]).join("")}`);
+      const marked = opts.filter((o) => o[3]);
+      if (marked.length !== 1) fail(`${tag}: ${marked.length} answers marked`);
+      const rest = body.slice(body.indexOf("\n> ", opts[3].index));
+      const off = rest.split(/\n\n(?!>)/)[0];
+      const official = off.split("\n").map((l) => l.replace(/^> ?/, "")).join("\n").replace(/^\s*\*\*Official explanation:\*\*\s*/, "");
+      const korean = flat(rest.slice(off.length)).replace(/\*\*/g, "").replace(/\n{3,}/g, "\n\n").trim();
+      const expl = scrub((korean ? korean + "\n\n" : "") + "[공식 해설 원문]\n" + official.replace(/\*\*/g, "").trim());
+      all.push({ d, n, q: { domain: d, stem: qm[1].replace(/\*\*/g, "").trim(), options: opts.map((o) => o[2].trim()),
+        answer: "ABCD".indexOf(marked[0][1]), explanation: expl } });
+    }
+  }
+  const doms = [1, 2, 3, 4, 5].map((d) => all.filter((x) => x.d === d).length);
+  if (doms.join("/") !== set.expect.join("/")) fail(`${set.id}: domain counts ${doms.join("/")} != ${set.expect.join("/")}`);
+  const nums = all.map((x) => x.n).sort((a, b) => a - b);
+  if (all.length !== 60 || nums.some((n, i) => n !== i + 1)) fail(`${set.id}: source Q numbers are not exactly 1..60`);
+  if (set.order === "original") all.sort((a, b) => a.n - b.n);
+  const qs = all.map((x, i) => ({ ...x.q, id: `${set.id}-${i + 1}` }));
+  const dist = [0, 0, 0, 0]; qs.forEach((q) => dist[q.answer]++);
+  console.log(`${set.id}: ${qs.length} questions, domains ${doms.join("/")}, answers ${dist.join("/")}`);
+  return qs;
+}
+
 function parse(set) {
+  if (set.prefix) return parseDomainFiles(set);
   const md = readFileSync(join(src, set.file), "utf8").replace(/\r\n/g, "\n");
   const body = md.split(/^## 정답표/m);
   const keyRows = [...(body[1] || "").matchAll(/Q(\d+) \| \*\*([A-D])\*\*/g)].reduce((o, m) => (o[+m[1]] = m[2], o), {});
