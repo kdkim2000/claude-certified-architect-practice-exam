@@ -94,6 +94,7 @@ node scripts/serve.mjs          # http://localhost:8080/claude-certified-archite
 ### 📝 모의고사 — `index.html`
 - **Study mode**: check each answer; the timer pauses while the explanation shows. **Exam mode**: timed, with feedback only after you submit.
 - Question palette, flags and keyboard shortcuts: `A`–`D` / `1`–`4` to answer, `←` / `→` to move, `F` to flag.
+- **Check answer** (study mode) and the results review show, in order: **🇰🇷 한국어 번역** (question and options A–D), **📖 상세 해설** (situation, why the answer is right, why each other option is wrong, key terms, exam tip) and the **기존 해설** (original explanation, unchanged). This applies to 실전 1–6 (360 questions); the scenario pool has the original explanations only.
 - **🚪 나가기** leaves an attempt; answers and remaining time are kept, and **Resume** continues it, also after a reload.
 - Results: scaled score, per-domain bars, and a full review with explanations.
 - **실전형 시나리오** draws a new combination on every start. Above each question it shows "Scenario *k* of 4" and that scenario's description, and it defaults to exam mode.
@@ -145,6 +146,7 @@ claude-certified-architect-practice-exam/
 ├─ guide.html                 가이드 학습
 ├─ nav.js                     shared top menu for all pages
 ├─ sets/                      GENERATED  practice-1..3, 5, 6, scenario-pool + manifest.js
+│  └─ ko/                     GENERATED  Korean translation + detailed explanation per mock exam (practice-1..3, default = 실전 4, 5, 6)
 ├─ study/                     GENERATED  18 chapters (Sxx.js) + manifest.js
 ├─ tasks/                     GENERATED  30 tasks (Tx_y.js) + manifest.js + media-assets.json + img/*.webp
 ├─ guide/                     GENERATED  14 units (Gxx.js) + manifest.js
@@ -152,6 +154,7 @@ claude-certified-architect-practice-exam/
 ├─ vendor/marked.min.js       Markdown renderer (vendored, no CDN)
 ├─ scripts/
 │  ├─ sync-bank.mjs           JSON bank       -> index.html data + questions/ccar-f.md
+│  ├─ build-ko.mjs            실전해설보강/*.json -> sets/ko/  (all 60 questions per exam; fails if a question changed)
 │  ├─ build-sets.mjs          mock-exam .md   -> sets/      (checks 16/11/12/12/9; 실전 5, 6 from Exam*_D*.md)
 │  ├─ build-study.mjs         section notes   -> study/
 │  ├─ build-tasks.mjs         AICG notes+media-> tasks/
@@ -184,6 +187,7 @@ Rebuild only when **source content changes**. Source files are *not* in this rep
 <content folder>/                         <- parent of the repo
 ├─ 실전테스트1.md  실전테스트2.md  실전테스트3.md  시나리오실전풀.md   -> build-sets
 ├─ Exam1_D1.md … Exam1_D5.md  Exam2_D1.md … Exam2_D5.md              -> build-sets (실전 5, 6)
+├─ 실전해설보강/practice-1|2|3|5|6.json, default.json (= 실전 4)           -> build-ko
 ├─ CCAR-F_D1_S02_..._notes.md … CCAR-F_D5_S19_..._notes.md (18 files)  -> build-study
 ├─ 가이드학습/G00_home.md, G01_….md … G14_….md                          -> build-guide
 ├─ AICG/                                  <- Task content                 -> build-tasks, upload-media
@@ -286,6 +290,7 @@ When you add a new top-level page or folder, add it to the workflow's copy step 
 |---|---|
 | Fix a question in 실전 1–3 or the scenario pool | edit the `.md` in the content folder → `node scripts/build-sets.mjs` → commit `sets/` |
 | Fix a question in 실전 5 or 6 | edit `Exam1_D*.md` / `Exam2_D*.md` in the content folder → `node scripts/build-sets.mjs` → commit `sets/` |
+| Edit a Korean translation or detailed explanation (실전 1–6) | edit `실전해설보강/<set>.json` (`stemKo`, `optionsKo`, `detail`) → `node scripts/build-ko.mjs` → commit `sets/ko/`. If the English question itself changed, update that entry and its `h` (first 8 hex of sha1 of the stem); the build stops on a stale `h` |
 | Add a new mock-exam set | add an entry to `SETS` in `scripts/build-sets.mjs` (id, file, title; `count: null` + `pool` for a scenario pool; `prefix` + `expect` + `order` for per-domain `Exam<k>_D*.md` files) → rebuild. Add a menu link in `nav.js` |
 | Update 실전 모의고사 4 | edit the JSON bank → `node scripts/sync-bank.mjs <bank.json>` → commit `index.html` and `questions/ccar-f.md` |
 | Edit a section note or its quiz | edit `CCAR-F_D*_S*_notes.md` → `node scripts/build-study.mjs` → commit `study/` |
