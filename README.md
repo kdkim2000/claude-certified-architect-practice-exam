@@ -160,7 +160,8 @@ claude-certified-architect-practice-exam/
 │  ├─ build-tasks.mjs         AICG notes+media-> tasks/
 │  ├─ build-guide.mjs         가이드학습/*.md -> guide/
 │  ├─ png2webp.py             AICG infographics PNG -> tasks/img/*.webp (Pillow)
-│  ├─ upload-media.mjs        AICG media -> GitHub release media-v1 (gh CLI)
+│  ├─ build-exam-videos.mjs   t<N>_notebook_sources/*.mp4 -> sets/exam-videos.js + exam-media-assets.json
+│  ├─ upload-media.mjs        AICG + exam videos -> GitHub release media-v1 (gh CLI)
 │  └─ serve.mjs               local static server with Range support (serves the parent folder)
 └─ .github/workflows/pages.yml   deploys to GitHub Pages on every push to main
 ```
@@ -270,6 +271,18 @@ The Task pages use 141 media files from `AICG/`: 60 videos, 52 audio summaries a
 
 ---
 
+### Mock-exam explanation videos
+
+Each mock exam can have up to six NotebookLM videos, one per block of 10 questions. Drop them in `t<N>_notebook_sources/` (next to the `(t<N>)CCAR-F_..._1-10.md` sources) named `(t<N>)NN_<label>.mp4`; NN=01..06 maps to questions 1–10 … 51–60, N=1..9 is the exam number (4 = the default set). Then:
+
+```bash
+node scripts/build-exam-videos.mjs                 # -> sets/exam-videos.js, sets/exam-media-assets.json
+node scripts/upload-media.mjs ../AICG --dry-run    # shows the exam videos too (--exam-src=<folder> if not next to the repo)
+node scripts/upload-media.mjs ../AICG --prune      # uploads to release media-v1 (same release as the Task media)
+```
+
+Commit `sets/exam-videos.js` and `sets/exam-media-assets.json` with the upload. The exam start screen lists the videos, and in study mode the explanation shows the video of that block after **Check answer**. Local files are used under `serve.mjs`, otherwise the video streams from the release (asset `exam-t<N>-NN_<sha1>.mp4`).
+
 ## Deploy to GitHub Pages
 
 `.github/workflows/pages.yml` runs on every push to `main` (or manually via **Actions → Run workflow**). It deploys only these files:
@@ -298,6 +311,7 @@ When you add a new top-level page or folder, add it to the workflow's copy step 
 | Edit a Task note or scenario | edit `AICG/<d>.<t>_*_EN.md` → `node scripts/build-tasks.mjs` → commit `tasks/` |
 | Add or replace an infographic | put `<d>-<t>_*.png` in `AICG/` → `png2webp.py` → `build-tasks.mjs` → commit `tasks/` |
 | Add a video, audio file or PDF | drop it in `AICG/` (naming rule above) → `build-tasks.mjs` → `upload-media.mjs --prune` → commit `tasks/` |
+| Add a mock-exam explanation video | save it as `t<N>_notebook_sources/(t<N>)NN_<label>.mp4` (NN = 01..06 = questions 10·(NN-1)+1..10·NN; t4 = the default set) → `build-exam-videos.mjs` → `upload-media.mjs --prune` → commit `sets/exam-videos.js` + `sets/exam-media-assets.json` |
 
 Markdown formats the converters expect:
 

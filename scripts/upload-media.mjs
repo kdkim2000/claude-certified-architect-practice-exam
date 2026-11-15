@@ -2,7 +2,10 @@
 // tasks.html streams from when ../AICG is not reachable (e.g. on GitHub Pages).
 // Reads tasks/media-assets.json (written by scripts/build-tasks.mjs), uploads only assets that are
 // missing or whose size differs, so it is safe to re-run. Needs the GitHub CLI (`gh auth login`).
-// Usage: node scripts/upload-media.mjs [AICG folder] [--tag=media-v1] [--dry-run] [--prune]
+// Also uploads the mock-exam explanation videos listed in sets/exam-media-assets.json (written by
+// scripts/build-exam-videos.mjs) from the t<N>_notebook_sources folders under --exam-src.
+// Usage: node scripts/upload-media.mjs [AICG folder] [--tag=media-v1] [--exam-src=<folder>] [--dry-run] [--prune]
+//   --exam-src  folder holding the t*_notebook_sources folders (default: the parent folder of this repo)
 //   --prune   also delete release assets that are no longer in the list
 import { readFileSync, mkdtempSync, copyFileSync, rmSync, existsSync } from "node:fs";
 import { join, dirname } from "node:path";
@@ -19,8 +22,13 @@ const dry = !!flag("dry-run"), prune = !!flag("prune");
 const fail = (m) => { console.error("ERROR: " + m); process.exit(1); };
 const gh = (...a) => execFileSync("gh", a, { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
 
-const { assets } = JSON.parse(readFileSync(join(root, "tasks", "media-assets.json"), "utf8"));
-for (const a of assets) if (!existsSync(join(src, a.file))) fail(`missing source file: ${a.file}`);
+const examSrc = (flag("exam-src") || "").split("=")[1] || join(root, "..");
+const taskAssets = JSON.parse(readFileSync(join(root, "tasks", "media-assets.json"), "utf8")).assets.map((a) => ({ ...a, path: join(src, a.file) }));
+const examFile = join(root, "sets", "exam-media-assets.json");
+const examAssets = existsSync(examFile) ? JSON.parse(readFileSync(examFile, "utf8")).assets.map((a) => ({ ...a, path: join(examSrc, a.dir, a.file) })) : [];
+const assets = [...taskAssets, ...examAssets];
+if (new Set(assets.map((a) => a.asset)).size !== assets.length) fail("duplicate asset names across task and exam media");
+for (const a of assets) if (!existsSync(a.path)) fail(`missing source file: ${a.path}`);
 
 let remote = [];
 try { remote = JSON.parse(gh("release", "view", tag, "--json", "assets")).assets; }
@@ -40,7 +48,7 @@ if (dry) { todo.forEach((a) => console.log("  upload", a.asset, "<-", a.file)); 
 const tmp = mkdtempSync(join(tmpdir(), "ccaf-media-"));
 try {
   for (let i = 0; i < todo.length; i += 5) {
-    const batch = todo.slice(i, i + 5).map((a) => { const p = join(tmp, a.asset); copyFileSync(join(src, a.file), p); return p; });
+    const batch = todo.slice(i, i + 5).map((a) => { const p = join(tmp, a.asset); copyFileSync(a.path, p); return p; });
     gh("release", "upload", tag, ...batch, "--clobber");
     batch.forEach((p) => rmSync(p));
     console.log(`  uploaded ${Math.min(i + 5, todo.length)}/${todo.length}`);
