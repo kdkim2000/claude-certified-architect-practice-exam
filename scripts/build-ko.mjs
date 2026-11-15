@@ -1,7 +1,7 @@
 // Build sets/ko/<set>.js from the Korean translation + detailed-explanation sources.
 // Usage: node scripts/build-ko.mjs [folder-with-sources]   (default: <parent of the repo>/실전해설보강)
 // Source: <folder>/<set>.json = [{ id, h, stemKo, optionsKo[4], detail }], one file per mock exam
-//   (practice-1, practice-2, practice-3, default = 실전 4, practice-5, practice-6).
+//   (practice-1, practice-2, practice-3, default = 실전 4, practice-5, practice-6, practice-7).
 // `h` is the first 8 hex of sha1(stem) of the question it was written for; the build fails if the question
 // text has changed since, so a stale translation never ships next to a different question.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
@@ -11,7 +11,7 @@ import { createHash } from "node:crypto";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const src = process.argv[2] || join(root, "..", "실전해설보강");
-const KEYS = ["practice-1", "practice-2", "practice-3", "default", "practice-5", "practice-6"];
+const KEYS = ["practice-1", "practice-2", "practice-3", "default", "practice-5", "practice-6", "practice-7"];
 const fail = (m) => { console.error("ERROR: " + m); process.exit(1); };
 const hash = (s) => createHash("sha1").update(s).digest("hex").slice(0, 8);
 

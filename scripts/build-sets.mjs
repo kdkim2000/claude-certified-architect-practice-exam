@@ -17,6 +17,8 @@ const SETS = [
   // order "domain": D1..D5, renumbered Q1..Q60. order "original": the source exam's own Q numbers (1..60).
   { id: "practice-5", prefix: "Exam1", order: "domain", expect: [17, 11, 12, 12, 8], title: "실전 모의고사 5", sub: "Practice Exam 5 · 60 Questions · D1→D5 순서" },
   { id: "practice-6", prefix: "Exam2", order: "domain", expect: [16, 10, 12, 12, 10], title: "실전 모의고사 6", sub: "Practice Exam 6 · 60 Questions · D1→D5 순서" },
+  // 실전 7: original questions (plain text, own explanations), official weighting enforced via expect.
+  { id: "practice-7", prefix: "Exam3", order: "domain", plain: true, expect: [16, 11, 12, 12, 9], title: "실전 모의고사 7", sub: "Practice Exam 7 · 60 Questions · 최종 총괄 · D1→D5 순서" },
   // Real-exam format: 6 official scenarios in one pool; each attempt draws 4 scenarios x 15 questions,
   // with the domain totals fixed to the official weighting (target). count: null = any size, checked below.
   { id: "scenario-pool", file: "시나리오실전풀.md", title: "실전형 시나리오 모의고사", sub: "6개 시나리오 중 4개 무작위 · 60 Questions", count: null,
@@ -58,6 +60,16 @@ function parseDomainFiles(set) {
       if (opts.map((o) => o[1]).join("") !== "ABCD") fail(`${tag}: options ${opts.map((o) => o[1]).join("")}`);
       const marked = opts.filter((o) => o[3]);
       if (marked.length !== 1) fail(`${tag}: ${marked.length} answers marked`);
+      if (set.plain) {   // original questions: plain text (stems may contain `**/*.ts`), our own Korean explanation only
+        const sc = body.match(/^\*\*Scenario\.\*\* (.*)$/m);
+        const fence = (t) => t.replace(/^```.*$/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+        const expl = body.slice(opts[3].index + opts[3][0].length).replace(/\*\*(핵심 개념|오답 이유)\*\*/g, "$1").replace(/\n{3,}/g, "\n\n").trim();
+        if (!/핵심 개념/.test(expl) || !/오답 이유/.test(expl)) fail(`${tag}: explanation needs 핵심 개념 and 오답 이유`);
+        const q = { domain: d, stem: fence(qm[1]), options: opts.map((o) => o[2].trim()), answer: "ABCD".indexOf(marked[0][1]), explanation: expl };
+        if (sc) q.scenario = sc[1].trim();
+        all.push({ d, n, q });
+        continue;
+      }
       const rest = body.slice(body.indexOf("\n> ", opts[3].index));
       const off = rest.split(/\n\n(?!>)/)[0];
       const official = off.split("\n").map((l) => l.replace(/^> ?/, "")).join("\n").replace(/^\s*\*\*Official explanation:\*\*\s*/, "");
@@ -74,7 +86,9 @@ function parseDomainFiles(set) {
   if (set.order === "original") all.sort((a, b) => a.n - b.n);
   const qs = all.map((x, i) => ({ ...x.q, id: `${set.id}-${i + 1}` }));
   const dist = [0, 0, 0, 0]; qs.forEach((q) => dist[q.answer]++);
-  console.log(`${set.id}: ${qs.length} questions, domains ${doms.join("/")}, answers ${dist.join("/")}`);
+  const len = (q) => q.options.map((o) => o.length), pos = (q) => { const l = len(q), c = l[q.answer]; return l.every((x) => c >= x) ? "L" : l.every((x) => c <= x) ? "S" : "M"; };
+  const lp = qs.map(pos);
+  console.log(`${set.id}: ${qs.length} questions, domains ${doms.join("/")}, answers ${dist.join("/")}, correct option longest/shortest ${lp.filter((x) => x === "L").length}/${lp.filter((x) => x === "S").length}`);
   return qs;
 }
 

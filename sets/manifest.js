@@ -24,7 +24,15 @@ window.EXAM_SETS = [
   "title": "실전 모의고사 6 (60)"
  },
  {
-  "id": "scenario-pool",
-  "title": "실전형 시나리오 (6개 중 4개 무작위 · 60)"
+  "id": "practice-7",
+  "title": "실전 모의고사 7 (60)"
+ },
+ {
+  "id": "practice-8",
+  "title": "실전 모의고사 8 (60)"
+ },
+ {
+  "id": "practice-9",
+  "title": "실전 모의고사 9 (60)"
  }
 ];
