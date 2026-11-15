@@ -15,7 +15,7 @@ const root = process.argv[2] || join(repo, "..");
 const fail = (m) => { console.error("ERROR: " + m); process.exit(1); };
 const RELEASE = "https://github.com/kdkim2000/claude-certified-architect-practice-exam/releases/download/media-v1/";
 // Only the published mock exams (1-6). Add 7.. here when those exams and their videos ship.
-const SET_OF = { 1: "practice-1", 2: "practice-2", 3: "practice-3", 4: "default", 5: "practice-5", 6: "practice-6" };
+const SET_OF = { 1: "practice-1", 2: "practice-2", 3: "practice-3", 4: "default", 5: "practice-5", 6: "practice-6", 7: "practice-7", 8: "practice-8", 9: "practice-9" };
 const QUESTIONS = 60, CHUNK = 10, CHUNKS = QUESTIONS / CHUNK;
 // GitHub mangles non-ASCII asset names, so the release copy gets an ASCII alias that stays stable while the file name does.
 const assetName = (n, nn, f) => `exam-t${n}-${nn}_${createHash("sha1").update(f).digest("hex").slice(0, 8)}.mp4`;
